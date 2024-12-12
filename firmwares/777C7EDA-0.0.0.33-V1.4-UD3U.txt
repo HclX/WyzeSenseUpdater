@@ -1,0 +1,4 @@
+Gateway info:
+	MAC:777C7EDA
+	VER:0.0.0.33 V1.4 Dongle UD3U
+	ENR:b'36b12b9de35c006f4268871d5512df5a'
