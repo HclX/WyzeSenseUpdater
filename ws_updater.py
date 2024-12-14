@@ -35,7 +35,7 @@ CMD_AUTO_BAUD        = 0x55
 FLASH_START_ADDR = 0x0
 FLASH_SIZE = 0x20000
 PAGE_SIZE = 0x1000
-BL_CFG_OFFSET = 0xFDB
+BL_CFG_OFFSET = 0xFD8
 
 VENDOR_ID = 0x1a86
 PRODUCT_ID = 0xe024
@@ -59,53 +59,11 @@ def dongle_read(fd, size):
     #os.read(fd, size)
     return fd.read(size)
 
-def dongle_get_cmd_resp(fd):
-    """
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns>Value1 = cmdResponse success. Value2 = previousCmdAck Value3 = data length</returns>
-    private static async Task<(bool, bool,int)> getCmdResponse()
-    {
-        Memory<byte> buffer = new byte[3];
-        try
-        {
-            Console.WriteLine($"[getCmdResponse] Attempting to read 3 bytes");
-            await dongleStream.ReadAsync(buffer);
-            Console.WriteLine($"[getCmdResponse] Read raw data: {DataToString(buffer.Span)}");
-        }
-        catch(Exception e)
-        {
-            Console.WriteLine(e.ToString());
-        }
-        if (buffer.Span[0] < 2)
-            return (false,false, buffer.Span[0]);
-        else
-        {
-            if(buffer.Span[2] == 0xCC)
-                return (true, true, buffer.Span[0]);
-            else if(buffer.Span[2] == 0x33)
-                return (true, false, buffer.Span[0]);
-        }
-        return (false, false, buffer.Span[0]);
-    }
-    """
-    rsp = dongle_read(fd, 3)
-    if rsp[0] < 2:
-        return (False, False, rsp[0])
-    elif rsp[2] == 0xCC:
-        return (True, True, rsp[0])
-    elif rsp[2] == 0x33:
-        return (True, False, rsp[0])
-    else:
-        return (False, False, rsp[0])
-
 def rawhid_read(fd):
     pkt = dongle_read(fd, 0x3f)
-    #logging.debug(f'[R]==>{hexify(pkt)}')
+    logging.debug(f'[R]==>{hexify(pkt)}')
     pkt_len = pkt[0]
     pkt = pkt[1:1+pkt_len]
-    logging.debug(f'[R]==>{hexify(pkt)}')
     return pkt
 
 def rawhid_write(fd, payload):
@@ -215,7 +173,7 @@ def cmd_read_mem(fd, addr, size, progress_cb=lambda *args: None):
         size -= chunk_size
         addr += chunk_size
 
-    progress_cb('Done', True)
+    progress_cb('', True)
     return data
 
 def cmd_erase(fd, addr, size):
@@ -266,21 +224,20 @@ def cmd_write_range(fd, addr, data, progress_cb=lambda x,y: None):
     assert addr < bl_cfg_addr, f'Invalid address'
     
     bl_cfg_idx = bl_cfg_addr - addr
-    if bl_cfg_idx < len(data):
-        assert data[bl_cfg_idx] != 0xC5, f'Invalid bootloader config byte:{data[bl_cfg_idx]:02X}'
+    size = len(data)
+    if bl_cfg_idx < size:
+        assert data[bl_cfg_idx] == 0xC5, f'Invalid bootloader config byte:{data[bl_cfg_idx]:02X}'
 
-    progress_cb(f'Intiating download, addr={addr:08X}, size={len(data):08X}...')
-
-    if not cmd_download(fd, addr, len(data)):
+    if not cmd_download(fd, addr, size):
         logging.error(f'Cmd Download failed...')
         return False
 
     offset = 0
     retry_count = 0
-    while offset < len(data):
-        progress_cb(f'Flashing {offset}/{len(data)}...')
+    while offset < size:
+        progress_cb(f'Flashing {offset:08X}/{size:08X}...')
 
-        chunk_size = len(data) - offset
+        chunk_size = size - offset
         if chunk_size > MAX_PACK_SIZE:
             chunk_size = MAX_PACK_SIZE
 
@@ -294,7 +251,8 @@ def cmd_write_range(fd, addr, data, progress_cb=lambda x,y: None):
 
         retry_count = 0
         offset += chunk_size
-    progress_cb("Done.", True)
+    progress_cb("", True)
+    return True
 
 def cmd_crc32(fd, addr, size):
     cmd_data = addr.to_bytes(4, byteorder='big') + size.to_bytes(4, byteorder='big') + b'\x00\x00\x00\x00'
@@ -317,12 +275,12 @@ def do_flash(fd, args):
         logging.error(f'Invalid flash file size')
         return False
 
-    bldr_cfg = data[FLASH_SIZE - PAGE_SIZE + BL_CFG_OFFSET]
-    if bldr_cfg != 0xC5:
-        logging.error(f'Invalid bootloader config byte:{bldr_cfg:02X}')
+    bldr_cfg_idx = FLASH_SIZE - PAGE_SIZE + BL_CFG_OFFSET
+    int.from_bytes(data[bldr_cfg_idx:bldr_cfg_idx+4], byteorder='big')
+    if bldr_cfg != 0xC501FEC5:
+        logging.error(f'Invalid bootloader config:{bldr_cfg:08X}')
         return False
 
-    data = data[:-0x1000]
     data_crc32 = binascii.crc32(data)
     logging.info(f"Firmware loaded from file, size=0x{len(data):08X}, CRC:0x{data_crc32:08X}")
 
@@ -440,7 +398,8 @@ def main():
     logging.info("Requesting Upgrade Mode...")
     req = b'\x07\xAA\x55\x43\x03\x12\x01\x57'
     rawhid_write(fd, req)
-    rawhid_read(fd)
+    rsp = rawhid_read(fd)
+    logging.info(f"rsp={hexify(rsp)}")
 
     logging.info("Requesting auto baud...")
     if not cmd_auto_baud(fd):

@@ -1,0 +1,5 @@
+Gateway info:
+	MAC:778B5F63
+	VER:0.0.0.47 V1.8 Gateway GW3U
+	ENR:b'8a18a3a3181fcf9a7b90ec8e6161a4ab'
+
