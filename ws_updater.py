@@ -292,7 +292,7 @@ def do_flash(fd, args):
         return False
 
     bldr_cfg_idx = FLASH_SIZE - PAGE_SIZE + BL_CFG_OFFSET
-    int.from_bytes(data[bldr_cfg_idx:bldr_cfg_idx+4], byteorder='big')
+    bldr_cfg = int.from_bytes(data[bldr_cfg_idx:bldr_cfg_idx+4], byteorder='big')
     if bldr_cfg != 0xC501FEC5:
         logging.error(f'Invalid bootloader config:{bldr_cfg:08X}')
         return False

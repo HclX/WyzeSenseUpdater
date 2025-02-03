@@ -1,0 +1,528 @@
+Opening wyzesense gateway [/dev/wyzesense]
+Gateway info:
+	MAC:77A85A36
+	VER:0.0.0.47 V1.8 Gateway GW3U
+	ENR:b'55ffeb67d8c5f870b943b021cc023eec'
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+Action:L
+------------------------
+2 sensors paired:
+	Sensor: 77BD514D
+	Sensor: 77A88E96
+------------------------
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+
+
+(.venv) xuanxing@xuanxing:~/Source/wyzesense2mqtt/wyzesense2mqtt$ ./bridge_tool_cli.py --device /dev/wyzesense -d
+Opening wyzesense gateway [/dev/wyzesense]
+DEBUG 2025-02-03 15:43:21,197 Start Inquiry...
+DEBUG 2025-02-03 15:43:21,198 ===> Sending: Packet: Cmd=4327, Payload=<None>
+DEBUG 2025-02-03 15:43:21,198 Sending: aa,55,43,03,27,01,6c
+DEBUG 2025-02-03 15:43:21,298 Trying to parse: 55,aa,43,04,28,01,01,6f
+DEBUG 2025-02-03 15:43:21,298 Received: 55,aa,43,04,28,01,01,6f
+DEBUG 2025-02-03 15:43:21,298 <=== Received: Packet: Cmd=4328, Payload=01
+DEBUG 2025-02-03 15:43:21,299 Inquiry returns 1
+DEBUG 2025-02-03 15:43:21,299 Start GetEnr...
+DEBUG 2025-02-03 15:43:21,299 ===> Sending: Packet: Cmd=4302, Payload=30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
+DEBUG 2025-02-03 15:43:21,299 Sending: aa,55,43,13,02,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,04,57
+DEBUG 2025-02-03 15:43:21,399 Trying to parse: 55,aa,43,13,03,55,ff,eb,67,d8,c5,f8,70,b9,43,b0,21,cc,02,3e,ec,0a,c8
+DEBUG 2025-02-03 15:43:21,399 Received: 55,aa,43,13,03,55,ff,eb,67,d8,c5,f8,70,b9,43,b0,21,cc,02,3e,ec,0a,c8
+DEBUG 2025-02-03 15:43:21,399 <=== Received: Packet: Cmd=4303, Payload=55,ff,eb,67,d8,c5,f8,70,b9,43,b0,21,cc,02,3e,ec
+DEBUG 2025-02-03 15:43:21,400 GetEnr returns 55,ff,eb,67,d8,c5,f8,70,b9,43,b0,21,cc,02,3e,ec
+DEBUG 2025-02-03 15:43:21,400 Start GetMAC...
+DEBUG 2025-02-03 15:43:21,400 ===> Sending: Packet: Cmd=4304, Payload=<None>
+DEBUG 2025-02-03 15:43:21,400 Sending: aa,55,43,03,04,01,49
+DEBUG 2025-02-03 15:43:21,500 Trying to parse: 55,aa,43,0b,05,37,37,41,38,35,41,33,36,03,18
+DEBUG 2025-02-03 15:43:21,501 Received: 55,aa,43,0b,05,37,37,41,38,35,41,33,36,03,18
+DEBUG 2025-02-03 15:43:21,501 <=== Received: Packet: Cmd=4305, Payload=37,37,41,38,35,41,33,36
+DEBUG 2025-02-03 15:43:21,501 GetMAC returns 77A85A36
+INFO 2025-02-03 15:43:21,501 Dongle MAC is [77A85A36]
+DEBUG 2025-02-03 15:43:21,501 Start GetVersion...
+DEBUG 2025-02-03 15:43:21,502 ===> Sending: Packet: Cmd=5316, Payload=<None>
+DEBUG 2025-02-03 15:43:21,502 Sending: aa,55,53,03,16,01,6b
+DEBUG 2025-02-03 15:43:21,601 Trying to parse: 55,aa,53,16,ff,02,67,55,aa,53,1d,17,30,2e,30,2e,30,2e,34,37,20,56,31,2e,38,20,47,61,74,65,77,61,79,20,47,57,33,55,08,50
+DEBUG 2025-02-03 15:43:21,602 Received: 55,aa,53,16,ff,02,67
+DEBUG 2025-02-03 15:43:21,602 <=== Received: Packet: Cmd=53FF, Payload=ACK(5316)
+DEBUG 2025-02-03 15:43:21,602 Trying to parse: 55,aa,53,1d,17,30,2e,30,2e,30,2e,34,37,20,56,31,2e,38,20,47,61,74,65,77,61,79,20,47,57,33,55,08,50
+DEBUG 2025-02-03 15:43:21,602 Received: 55,aa,53,1d,17,30,2e,30,2e,30,2e,34,37,20,56,31,2e,38,20,47,61,74,65,77,61,79,20,47,57,33,55,08,50
+DEBUG 2025-02-03 15:43:21,603 <=== Received: Packet: Cmd=5317, Payload=30,2e,30,2e,30,2e,34,37,20,56,31,2e,38,20,47,61,74,65,77,61,79,20,47,57,33,55
+DEBUG 2025-02-03 15:43:21,603 Sending ACK packet for cmd 5317
+DEBUG 2025-02-03 15:43:21,603 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5317)
+DEBUG 2025-02-03 15:43:21,603 Sending: aa,55,53,17,ff,02,68
+DEBUG 2025-02-03 15:43:21,604 GetVersion returns 0.0.0.47 V1.8 Gateway GW3U
+INFO 2025-02-03 15:43:21,604 Dongle version: 0.0.0.47 V1.8 Gateway GW3U
+DEBUG 2025-02-03 15:43:21,604 ===> Sending: Packet: Cmd=5314, Payload=ff
+DEBUG 2025-02-03 15:43:21,604 Sending: aa,55,53,04,14,ff,02,69
+DEBUG 2025-02-03 15:43:21,704 Trying to parse: 55,aa,53,14,ff,02,65,55,aa,53,03,15,01,6a
+DEBUG 2025-02-03 15:43:21,704 Received: 55,aa,53,14,ff,02,65
+DEBUG 2025-02-03 15:43:21,705 <=== Received: Packet: Cmd=53FF, Payload=ACK(5314)
+DEBUG 2025-02-03 15:43:21,705 Trying to parse: 55,aa,53,03,15,01,6a
+DEBUG 2025-02-03 15:43:21,705 Received: 55,aa,53,03,15,01,6a
+DEBUG 2025-02-03 15:43:21,705 <=== Received: Packet: Cmd=5315, Payload=<None>
+DEBUG 2025-02-03 15:43:21,705 Sending ACK packet for cmd 5315
+DEBUG 2025-02-03 15:43:21,705 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5315)
+DEBUG 2025-02-03 15:43:21,705 Sending: aa,55,53,15,ff,02,66
+Gateway info:
+	MAC:77A85A36
+	VER:0.0.0.47 V1.8 Gateway GW3U
+	ENR:b'55ffeb67d8c5f870b943b021cc023eec'
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+Action:DEBUG 2025-02-03 15:43:21,807 Trying to parse: 55,aa,53,03,32,01,87
+DEBUG 2025-02-03 15:43:21,807 Received: 55,aa,53,03,32,01,87
+DEBUG 2025-02-03 15:43:21,807 <=== Received: Packet: Cmd=5332, Payload=<None>
+DEBUG 2025-02-03 15:43:21,807 Sending ACK packet for cmd 5332
+DEBUG 2025-02-03 15:43:21,807 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5332)
+DEBUG 2025-02-03 15:43:21,808 Sending: aa,55,53,32,ff,02,83
+DEBUG 2025-02-03 15:43:21,809 ===> Sending: Packet: Cmd=5333, Payload=00,00,01,94,ce,32,78,d1
+DEBUG 2025-02-03 15:43:21,809 Sending: aa,55,53,0b,33,00,00,01,94,ce,32,78,d1,04,6e
+DEBUG 2025-02-03 15:43:21,910 Trying to parse: 55,aa,53,33,ff,02,84
+DEBUG 2025-02-03 15:43:21,910 Received: 55,aa,53,33,ff,02,84
+DEBUG 2025-02-03 15:43:21,910 <=== Received: Packet: Cmd=53FF, Payload=ACK(5333)
+L
+------------------------
+INFO 2025-02-03 15:43:24,232 Start GetSensors...
+DEBUG 2025-02-03 15:43:24,232 ===> Sending: Packet: Cmd=532E, Payload=<None>
+DEBUG 2025-02-03 15:43:24,232 Sending: aa,55,53,03,2e,01,83
+DEBUG 2025-02-03 15:43:24,319 Trying to parse: 55,aa,53,2e,ff,02,7f,55,aa,53,04,2f,00,01,85
+DEBUG 2025-02-03 15:43:24,319 Received: 55,aa,53,2e,ff,02,7f
+DEBUG 2025-02-03 15:43:24,319 <=== Received: Packet: Cmd=53FF, Payload=ACK(532E)
+DEBUG 2025-02-03 15:43:24,319 Trying to parse: 55,aa,53,04,2f,00,01,85
+DEBUG 2025-02-03 15:43:24,319 Received: 55,aa,53,04,2f,00,01,85
+DEBUG 2025-02-03 15:43:24,319 <=== Received: Packet: Cmd=532F, Payload=00
+DEBUG 2025-02-03 15:43:24,319 Sending ACK packet for cmd 532F
+DEBUG 2025-02-03 15:43:24,320 ===> Sending: Packet: Cmd=53FF, Payload=ACK(532F)
+DEBUG 2025-02-03 15:43:24,320 Sending: aa,55,53,2f,ff,02,80
+INFO 2025-02-03 15:43:24,320 No sensors bond yet...
+0 sensors paired:
+DEBUG 2025-02-03 15:43:24,321 0 sensors paired:
+------------------------
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+Action:p
+------------------------
+INFO 2025-02-03 15:43:27,388 Start Scan...
+DEBUG 2025-02-03 15:43:27,388 ===> Sending: Packet: Cmd=531C, Payload=01
+DEBUG 2025-02-03 15:43:27,388 Sending: aa,55,53,04,1c,01,01,73
+DEBUG 2025-02-03 15:43:27,431 Trying to parse: 55,aa,53,1c,ff,02,6d,55,aa,53,03,1d,01,72
+DEBUG 2025-02-03 15:43:27,432 Received: 55,aa,53,1c,ff,02,6d
+DEBUG 2025-02-03 15:43:27,432 <=== Received: Packet: Cmd=53FF, Payload=ACK(531C)
+DEBUG 2025-02-03 15:43:27,432 Trying to parse: 55,aa,53,03,1d,01,72
+DEBUG 2025-02-03 15:43:27,432 Received: 55,aa,53,03,1d,01,72
+DEBUG 2025-02-03 15:43:27,432 <=== Received: Packet: Cmd=531D, Payload=<None>
+DEBUG 2025-02-03 15:43:27,432 Sending ACK packet for cmd 531D
+DEBUG 2025-02-03 15:43:27,432 ===> Sending: Packet: Cmd=53FF, Payload=ACK(531D)
+DEBUG 2025-02-03 15:43:27,432 Sending: aa,55,53,1d,ff,02,6e
+DEBUG 2025-02-03 15:43:38,974 Trying to parse: 55,aa,53,0e,20,a3,37,37,42,44,35,31,34,44,0e,21,04,24
+DEBUG 2025-02-03 15:43:38,975 Received: 55,aa,53,0e,20,a3,37,37,42,44,35,31,34,44,0e,21,04,24
+DEBUG 2025-02-03 15:43:38,975 <=== Received: Packet: Cmd=5320, Payload=a3,37,37,42,44,35,31,34,44,0e,21
+DEBUG 2025-02-03 15:43:38,975 Sending ACK packet for cmd 5320
+DEBUG 2025-02-03 15:43:38,975 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5320)
+DEBUG 2025-02-03 15:43:38,975 Sending: aa,55,53,20,ff,02,71
+INFO 2025-02-03 15:43:38,975 Sensor found: mac=[77BD514D], type=14, version=33
+INFO 2025-02-03 15:43:38,975 Start GetSensorR1...
+DEBUG 2025-02-03 15:43:38,976 ===> Sending: Packet: Cmd=5321, Payload=37,37,42,44,35,31,34,44,4f,6b,35,48,50,4e,51,34,6c,66,37,37,75,37,35,34
+DEBUG 2025-02-03 15:43:38,976 Sending: aa,55,53,1b,21,37,37,42,44,35,31,34,44,4f,6b,35,48,50,4e,51,34,6c,66,37,37,75,37,35,34,08,0f
+DEBUG 2025-02-03 15:43:39,075 Trying to parse: 55,aa,53,21,ff,02,72
+DEBUG 2025-02-03 15:43:39,076 Received: 55,aa,53,21,ff,02,72
+DEBUG 2025-02-03 15:43:39,076 <=== Received: Packet: Cmd=53FF, Payload=ACK(5321)
+DEBUG 2025-02-03 15:43:39,878 Trying to parse: 55,aa,53,1e,22,a5,37,37,42,44,35,31,34,44,d2,df,6d,68,48,01,ef,b5,47,88,28,4d,2e,09,6b,bc
+ERROR 2025-02-03 15:43:39,878 Invalid packet: 55,aa,53,1e,22,a5,37,37,42,44,35,31,34,44,d2,df,6d,68,48,01,ef,b5,47,88,28,4d,2e,09,6b,bc
+ERROR 2025-02-03 15:43:39,878 Short packet: expected 34, got 30
+DEBUG 2025-02-03 15:43:39,978 Trying to parse: 55,aa,53,1e,22,a5,37,37,42,44,35,31,34,44,d2,df,6d,68,48,01,ef,b5,47,88,28,4d,2e,09,6b,bc,0e,21,0b,4d
+DEBUG 2025-02-03 15:43:39,979 Received: 55,aa,53,1e,22,a5,37,37,42,44,35,31,34,44,d2,df,6d,68,48,01,ef,b5,47,88,28,4d,2e,09,6b,bc,0e,21,0b,4d
+DEBUG 2025-02-03 15:43:39,979 <=== Received: Packet: Cmd=5322, Payload=a5,37,37,42,44,35,31,34,44,d2,df,6d,68,48,01,ef,b5,47,88,28,4d,2e,09,6b,bc,0e,21
+DEBUG 2025-02-03 15:43:39,979 Sending ACK packet for cmd 5322
+DEBUG 2025-02-03 15:43:39,979 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5322)
+DEBUG 2025-02-03 15:43:39,979 Sending: aa,55,53,22,ff,02,73
+DEBUG 2025-02-03 15:43:39,980 Sensor R1: 'a5,37,37,42,44,35,31,34,44,d2,df,6d,68,48,01,ef,b5,47,88,28,4d,2e,09,6b,bc,0e,21'
+DEBUG 2025-02-03 15:43:39,980 ===> Sending: Packet: Cmd=531C, Payload=00
+DEBUG 2025-02-03 15:43:39,980 Sending: aa,55,53,04,1c,00,01,72
+DEBUG 2025-02-03 15:43:39,980 Trying to parse: 55,aa,53,1e,22,a5,37,37,42,44,35,31,34,44,d2,df,6d,68,48,01,ef,b5,47,88,28,4d,2e,09,6b,bc,0e,21,0b,4d
+DEBUG 2025-02-03 15:43:39,980 Received: 55,aa,53,1e,22,a5,37,37,42,44,35,31,34,44,d2,df,6d,68,48,01,ef,b5,47,88,28,4d,2e,09,6b,bc,0e,21,0b,4d
+DEBUG 2025-02-03 15:43:39,980 <=== Received: Packet: Cmd=5322, Payload=a5,37,37,42,44,35,31,34,44,d2,df,6d,68,48,01,ef,b5,47,88,28,4d,2e,09,6b,bc,0e,21
+DEBUG 2025-02-03 15:43:39,981 Sending ACK packet for cmd 5322
+DEBUG 2025-02-03 15:43:39,981 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5322)
+DEBUG 2025-02-03 15:43:39,981 Sending: aa,55,53,22,ff,02,73
+DEBUG 2025-02-03 15:43:40,082 Trying to parse: 55,aa,53,1c,ff,02,6d,55,aa,53,03,1d,01,72
+DEBUG 2025-02-03 15:43:40,082 Received: 55,aa,53,1c,ff,02,6d
+DEBUG 2025-02-03 15:43:40,082 <=== Received: Packet: Cmd=53FF, Payload=ACK(531C)
+DEBUG 2025-02-03 15:43:40,082 Trying to parse: 55,aa,53,03,1d,01,72
+DEBUG 2025-02-03 15:43:40,082 Received: 55,aa,53,03,1d,01,72
+DEBUG 2025-02-03 15:43:40,082 <=== Received: Packet: Cmd=531D, Payload=<None>
+DEBUG 2025-02-03 15:43:40,082 Sending ACK packet for cmd 531D
+DEBUG 2025-02-03 15:43:40,082 ===> Sending: Packet: Cmd=53FF, Payload=ACK(531D)
+DEBUG 2025-02-03 15:43:40,082 Sending: aa,55,53,1d,ff,02,6e
+DEBUG 2025-02-03 15:43:40,083 ===> Sending: Packet: Cmd=5323, Payload=37,37,42,44,35,31,34,44,ff,04
+DEBUG 2025-02-03 15:43:40,083 Sending: aa,55,53,0d,23,37,37,42,44,35,31,34,44,ff,04,04,57
+DEBUG 2025-02-03 15:43:40,183 Trying to parse: 55,aa,53,23,ff,02,74,55,aa,53,03,24,01,79
+DEBUG 2025-02-03 15:43:40,183 Received: 55,aa,53,23,ff,02,74
+DEBUG 2025-02-03 15:43:40,183 <=== Received: Packet: Cmd=53FF, Payload=ACK(5323)
+DEBUG 2025-02-03 15:43:40,184 Trying to parse: 55,aa,53,03,24,01,79
+DEBUG 2025-02-03 15:43:40,184 Received: 55,aa,53,03,24,01,79
+DEBUG 2025-02-03 15:43:40,184 <=== Received: Packet: Cmd=5324, Payload=<None>
+DEBUG 2025-02-03 15:43:40,184 Sending ACK packet for cmd 5324
+DEBUG 2025-02-03 15:43:40,184 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5324)
+DEBUG 2025-02-03 15:43:40,184 Sending: aa,55,53,24,ff,02,75
+Sensor found: mac=77BD514D, type=switchv2, version=33
+DEBUG 2025-02-03 15:43:40,185 Sensor found: mac=77BD514D, type=switchv2, version=33
+------------------------
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+Action:DEBUG 2025-02-03 15:43:40,485 Trying to parse: 55,aa,53,1d,19,00,00,01,94,ce,32,be,0d,a2,37,37,42,44,35,31,34,44,0e,14,21,00,01,01,00,01,30,06,d2
+DEBUG 2025-02-03 15:43:40,485 Received: 55,aa,53,1d,19,00,00,01,94,ce,32,be,0d,a2,37,37,42,44,35,31,34,44,0e,14,21,00,01,01,00,01,30,06,d2
+DEBUG 2025-02-03 15:43:40,485 <=== Received: Packet: Cmd=5319, Payload=00,00,01,94,ce,32,be,0d,a2,37,37,42,44,35,31,34,44,0e,14,21,00,01,01,00,01,30
+DEBUG 2025-02-03 15:43:40,485 Sending ACK packet for cmd 5319
+DEBUG 2025-02-03 15:43:40,485 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5319)
+DEBUG 2025-02-03 15:43:40,486 Sending: aa,55,53,19,ff,02,6a
+DEBUG 2025-02-03 15:43:40,586 Trying to parse: 55,aa,53,1d,19,00,00,01,94,ce,32,be,88,a1,37,37,42,44,35,31,34,44,0e,15,21,00,01,01,00,01,31,07,4e
+DEBUG 2025-02-03 15:43:40,587 Received: 55,aa,53,1d,19,00,00,01,94,ce,32,be,88,a1,37,37,42,44,35,31,34,44,0e,15,21,00,01,01,00,01,31,07,4e
+DEBUG 2025-02-03 15:43:40,587 <=== Received: Packet: Cmd=5319, Payload=00,00,01,94,ce,32,be,88,a1,37,37,42,44,35,31,34,44,0e,15,21,00,01,01,00,01,31
+DEBUG 2025-02-03 15:43:40,587 Sending ACK packet for cmd 5319
+DEBUG 2025-02-03 15:43:40,587 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5319)
+DEBUG 2025-02-03 15:43:40,587 Sending: aa,55,53,19,ff,02,6a
+L
+------------------------
+INFO 2025-02-03 15:43:44,448 Start GetSensors...
+DEBUG 2025-02-03 15:43:44,448 ===> Sending: Packet: Cmd=532E, Payload=<None>
+DEBUG 2025-02-03 15:43:44,448 Sending: aa,55,53,03,2e,01,83
+DEBUG 2025-02-03 15:43:44,500 Trying to parse: 55,aa,53,2e,ff,02,7f,55,aa,53,04,2f,01,01,86
+DEBUG 2025-02-03 15:43:44,501 Received: 55,aa,53,2e,ff,02,7f
+DEBUG 2025-02-03 15:43:44,501 <=== Received: Packet: Cmd=53FF, Payload=ACK(532E)
+DEBUG 2025-02-03 15:43:44,501 Trying to parse: 55,aa,53,04,2f,01,01,86
+DEBUG 2025-02-03 15:43:44,501 Received: 55,aa,53,04,2f,01,01,86
+DEBUG 2025-02-03 15:43:44,501 <=== Received: Packet: Cmd=532F, Payload=01
+DEBUG 2025-02-03 15:43:44,501 Sending ACK packet for cmd 532F
+DEBUG 2025-02-03 15:43:44,501 ===> Sending: Packet: Cmd=53FF, Payload=ACK(532F)
+DEBUG 2025-02-03 15:43:44,501 Sending: aa,55,53,2f,ff,02,80
+INFO 2025-02-03 15:43:44,502 1 sensors reported, waiting for each one to report...
+DEBUG 2025-02-03 15:43:44,502 ===> Sending: Packet: Cmd=5330, Payload=01
+DEBUG 2025-02-03 15:43:44,502 Sending: aa,55,53,04,30,01,01,87
+DEBUG 2025-02-03 15:43:44,602 Trying to parse: 55,aa,53,30,ff,02,81
+DEBUG 2025-02-03 15:43:44,602 Received: 55,aa,53,30,ff,02,81
+DEBUG 2025-02-03 15:43:44,602 <=== Received: Packet: Cmd=53FF, Payload=ACK(5330)
+DEBUG 2025-02-03 15:43:44,602 Trying to parse: 55,aa,53,0b,31,37,37,42,44,35,31,34,44,03,60
+DEBUG 2025-02-03 15:43:44,603 Received: 55,aa,53,0b,31,37,37,42,44,35,31,34,44,03,60
+DEBUG 2025-02-03 15:43:44,603 <=== Received: Packet: Cmd=5331, Payload=37,37,42,44,35,31,34,44
+DEBUG 2025-02-03 15:43:44,603 Sending ACK packet for cmd 5331
+DEBUG 2025-02-03 15:43:44,603 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5331)
+DEBUG 2025-02-03 15:43:44,603 Sending: aa,55,53,31,ff,02,82
+INFO 2025-02-03 15:43:44,603 Sensor 1/1, MAC:77BD514D
+1 sensors paired:
+DEBUG 2025-02-03 15:43:44,604 1 sensors paired:
+	Sensor: 77BD514D
+DEBUG 2025-02-03 15:43:44,604 	Sensor: 77BD514D
+------------------------
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+Action:DEBUG 2025-02-03 15:43:44,704 Trying to parse: 55,aa,53,03,32,01,87
+DEBUG 2025-02-03 15:43:44,704 Received: 55,aa,53,03,32,01,87
+DEBUG 2025-02-03 15:43:44,704 <=== Received: Packet: Cmd=5332, Payload=<None>
+DEBUG 2025-02-03 15:43:44,704 Sending ACK packet for cmd 5332
+DEBUG 2025-02-03 15:43:44,704 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5332)
+DEBUG 2025-02-03 15:43:44,704 Sending: aa,55,53,32,ff,02,83
+DEBUG 2025-02-03 15:43:44,705 ===> Sending: Packet: Cmd=5333, Payload=00,00,01,94,ce,32,d2,41
+DEBUG 2025-02-03 15:43:44,705 Sending: aa,55,53,0b,33,00,00,01,94,ce,32,d2,41,04,38
+DEBUG 2025-02-03 15:43:44,806 Trying to parse: 55,aa,53,33,ff,02,84
+DEBUG 2025-02-03 15:43:44,807 Received: 55,aa,53,33,ff,02,84
+DEBUG 2025-02-03 15:43:44,807 <=== Received: Packet: Cmd=53FF, Payload=ACK(5333)
+p
+------------------------
+INFO 2025-02-03 15:43:52,532 Start Scan...
+DEBUG 2025-02-03 15:43:52,532 ===> Sending: Packet: Cmd=531C, Payload=01
+DEBUG 2025-02-03 15:43:52,532 Sending: aa,55,53,04,1c,01,01,73
+DEBUG 2025-02-03 15:43:52,634 Trying to parse: 55,aa,53,1c,ff,02,6d,55,aa,53,03,1d,01,72
+DEBUG 2025-02-03 15:43:52,635 Received: 55,aa,53,1c,ff,02,6d
+DEBUG 2025-02-03 15:43:52,635 <=== Received: Packet: Cmd=53FF, Payload=ACK(531C)
+DEBUG 2025-02-03 15:43:52,635 Trying to parse: 55,aa,53,03,1d,01,72
+DEBUG 2025-02-03 15:43:52,635 Received: 55,aa,53,03,1d,01,72
+DEBUG 2025-02-03 15:43:52,635 <=== Received: Packet: Cmd=531D, Payload=<None>
+DEBUG 2025-02-03 15:43:52,635 Sending ACK packet for cmd 531D
+DEBUG 2025-02-03 15:43:52,635 ===> Sending: Packet: Cmd=53FF, Payload=ACK(531D)
+DEBUG 2025-02-03 15:43:52,635 Sending: aa,55,53,1d,ff,02,6e
+DEBUG 2025-02-03 15:44:07,287 Trying to parse: 55,aa,53,0e,20,a3,37,37,41,38,38,45,39,36,0c,15,04,17
+DEBUG 2025-02-03 15:44:07,287 Received: 55,aa,53,0e,20,a3,37,37,41,38,38,45,39,36,0c,15,04,17
+DEBUG 2025-02-03 15:44:07,287 <=== Received: Packet: Cmd=5320, Payload=a3,37,37,41,38,38,45,39,36,0c,15
+DEBUG 2025-02-03 15:44:07,287 Sending ACK packet for cmd 5320
+DEBUG 2025-02-03 15:44:07,287 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5320)
+DEBUG 2025-02-03 15:44:07,287 Sending: aa,55,53,20,ff,02,71
+INFO 2025-02-03 15:44:07,288 Sensor found: mac=[77A88E96], type=12, version=21
+INFO 2025-02-03 15:44:07,288 Start GetSensorR1...
+DEBUG 2025-02-03 15:44:07,288 ===> Sending: Packet: Cmd=5321, Payload=37,37,41,38,38,45,39,36,4f,6b,35,48,50,4e,51,34,6c,66,37,37,75,37,35,34
+DEBUG 2025-02-03 15:44:07,288 Sending: aa,55,53,1b,21,37,37,41,38,38,45,39,36,4f,6b,35,48,50,4e,51,34,6c,66,37,37,75,37,35,34,08,10
+DEBUG 2025-02-03 15:44:07,388 Trying to parse: 55,aa,53,21,ff,02,72
+DEBUG 2025-02-03 15:44:07,389 Received: 55,aa,53,21,ff,02,72
+DEBUG 2025-02-03 15:44:07,389 <=== Received: Packet: Cmd=53FF, Payload=ACK(5321)
+DEBUG 2025-02-03 15:44:07,690 Trying to parse: 55,aa,53,1e,22,a5,37,37,41,38,38,45,39,36,69,72,c0,1c,52,a7,b9,2d,d3,34,9c,ef,df,78,15,76
+ERROR 2025-02-03 15:44:07,690 Invalid packet: 55,aa,53,1e,22,a5,37,37,41,38,38,45,39,36,69,72,c0,1c,52,a7,b9,2d,d3,34,9c,ef,df,78,15,76
+ERROR 2025-02-03 15:44:07,690 Short packet: expected 34, got 30
+DEBUG 2025-02-03 15:44:07,791 Trying to parse: 55,aa,53,1e,22,a5,37,37,41,38,38,45,39,36,69,72,c0,1c,52,a7,b9,2d,d3,34,9c,ef,df,78,15,76,0c,15,0c,35
+DEBUG 2025-02-03 15:44:07,791 Received: 55,aa,53,1e,22,a5,37,37,41,38,38,45,39,36,69,72,c0,1c,52,a7,b9,2d,d3,34,9c,ef,df,78,15,76,0c,15,0c,35
+DEBUG 2025-02-03 15:44:07,791 <=== Received: Packet: Cmd=5322, Payload=a5,37,37,41,38,38,45,39,36,69,72,c0,1c,52,a7,b9,2d,d3,34,9c,ef,df,78,15,76,0c,15
+DEBUG 2025-02-03 15:44:07,791 Sending ACK packet for cmd 5322
+DEBUG 2025-02-03 15:44:07,791 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5322)
+DEBUG 2025-02-03 15:44:07,791 Sending: aa,55,53,22,ff,02,73
+DEBUG 2025-02-03 15:44:07,792 Sensor R1: 'a5,37,37,41,38,38,45,39,36,69,72,c0,1c,52,a7,b9,2d,d3,34,9c,ef,df,78,15,76,0c,15'
+DEBUG 2025-02-03 15:44:07,792 ===> Sending: Packet: Cmd=531C, Payload=00
+DEBUG 2025-02-03 15:44:07,792 Sending: aa,55,53,04,1c,00,01,72
+DEBUG 2025-02-03 15:44:07,792 Trying to parse: 55,aa,53,1e,22,a5,37,37,41,38,38,45,39,36,69,72,c0,1c,52,a7,b9,2d,d3,34,9c,ef,df,78,15,76,0c,15,0c,35
+DEBUG 2025-02-03 15:44:07,793 Received: 55,aa,53,1e,22,a5,37,37,41,38,38,45,39,36,69,72,c0,1c,52,a7,b9,2d,d3,34,9c,ef,df,78,15,76,0c,15,0c,35
+DEBUG 2025-02-03 15:44:07,793 <=== Received: Packet: Cmd=5322, Payload=a5,37,37,41,38,38,45,39,36,69,72,c0,1c,52,a7,b9,2d,d3,34,9c,ef,df,78,15,76,0c,15
+DEBUG 2025-02-03 15:44:07,793 Sending ACK packet for cmd 5322
+DEBUG 2025-02-03 15:44:07,793 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5322)
+DEBUG 2025-02-03 15:44:07,793 Sending: aa,55,53,22,ff,02,73
+DEBUG 2025-02-03 15:44:07,894 Trying to parse: 55,aa,53,1c,ff,02,6d,55,aa,53,03,1d,01,72
+DEBUG 2025-02-03 15:44:07,894 Received: 55,aa,53,1c,ff,02,6d
+DEBUG 2025-02-03 15:44:07,894 <=== Received: Packet: Cmd=53FF, Payload=ACK(531C)
+DEBUG 2025-02-03 15:44:07,894 Trying to parse: 55,aa,53,03,1d,01,72
+DEBUG 2025-02-03 15:44:07,894 Received: 55,aa,53,03,1d,01,72
+DEBUG 2025-02-03 15:44:07,895 <=== Received: Packet: Cmd=531D, Payload=<None>
+DEBUG 2025-02-03 15:44:07,895 Sending ACK packet for cmd 531D
+DEBUG 2025-02-03 15:44:07,895 ===> Sending: Packet: Cmd=53FF, Payload=ACK(531D)
+DEBUG 2025-02-03 15:44:07,895 Sending: aa,55,53,1d,ff,02,6e
+DEBUG 2025-02-03 15:44:07,896 ===> Sending: Packet: Cmd=5323, Payload=37,37,41,38,38,45,39,36,ff,04
+DEBUG 2025-02-03 15:44:07,896 Sending: aa,55,53,0d,23,37,37,41,38,38,45,39,36,ff,04,04,58
+DEBUG 2025-02-03 15:44:07,996 Trying to parse: 55,aa,53,23,ff,02,74,55,aa,53,03,24,01,79
+DEBUG 2025-02-03 15:44:07,996 Received: 55,aa,53,23,ff,02,74
+DEBUG 2025-02-03 15:44:07,996 <=== Received: Packet: Cmd=53FF, Payload=ACK(5323)
+DEBUG 2025-02-03 15:44:07,996 Trying to parse: 55,aa,53,03,24,01,79
+DEBUG 2025-02-03 15:44:07,996 Received: 55,aa,53,03,24,01,79
+DEBUG 2025-02-03 15:44:07,996 <=== Received: Packet: Cmd=5324, Payload=<None>
+DEBUG 2025-02-03 15:44:07,996 Sending ACK packet for cmd 5324
+DEBUG 2025-02-03 15:44:07,996 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5324)
+DEBUG 2025-02-03 15:44:07,996 Sending: aa,55,53,24,ff,02,75
+Sensor found: mac=77A88E96, type=unknown:0C, version=21
+DEBUG 2025-02-03 15:44:07,997 Sensor found: mac=77A88E96, type=unknown:0C, version=21
+------------------------
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+Action:DEBUG 2025-02-03 15:44:08,198 Trying to parse: 55,aa,53,1d,19,00,00,01,94,ce,33,29,58,a2,37,37,41,38,38,45,39,36,0c,14,68,00,01,00,00,01,32,06,d0
+DEBUG 2025-02-03 15:44:08,198 Received: 55,aa,53,1d,19,00,00,01,94,ce,33,29,58,a2,37,37,41,38,38,45,39,36,0c,14,68,00,01,00,00,01,32,06,d0
+DEBUG 2025-02-03 15:44:08,198 <=== Received: Packet: Cmd=5319, Payload=00,00,01,94,ce,33,29,58,a2,37,37,41,38,38,45,39,36,0c,14,68,00,01,00,00,01,32
+DEBUG 2025-02-03 15:44:08,198 Sending ACK packet for cmd 5319
+DEBUG 2025-02-03 15:44:08,199 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5319)
+DEBUG 2025-02-03 15:44:08,199 Sending: aa,55,53,19,ff,02,6a
+WARNING 2025-02-03 15:44:08,199 Unknown sensor type:  C
+ERROR 2025-02-03 15:44:08,199 Error occured in dongle worker thread
+Traceback (most recent call last):
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/wyzesense.py", line 520, in _Worker
+    self._HandlePacket(pkt)
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/wyzesense.py", line 481, in _HandlePacket
+    handler(pkt)
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/wyzesense.py", line 392, in _OnSensorAlarm
+    e = SensorEvent.Parse(pkt.Payload)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/wyzesense.py", line 364, in Parse
+    return parser(mac, event, sensor_type, timestamp, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/wyzesense.py", line 289, in _AlarmParser
+    return cls._UnknownParser(mac, event, timestamp, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: SensorEvent._UnknownParser() missing 1 required positional argument: 'data'
+L
+------------------------
+INFO 2025-02-03 15:44:18,598 Start GetSensors...
+DEBUG 2025-02-03 15:44:18,598 ===> Sending: Packet: Cmd=532E, Payload=<None>
+DEBUG 2025-02-03 15:44:18,598 Sending: aa,55,53,03,2e,01,83
+Traceback (most recent call last):
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/./bridge_tool_cli.py", line 152, in <module>
+    sys.exit(main(docopt(usage)))
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/./bridge_tool_cli.py", line 134, in main
+    while HandleCmd():
+          ^^^^^^^^^^^
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/./bridge_tool_cli.py", line 129, in HandleCmd
+    handler[1](cmd_and_args[1:])
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/./bridge_tool_cli.py", line 56, in List
+    result = ws.List()
+             ^^^^^^^^^
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/wyzesense.py", line 656, in List
+    sensors = self._GetSensors()
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/wyzesense.py", line 610, in _GetSensors
+    resp = self._DoSimpleCommand(Packet.GetSensorCount())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/wyzesense.py", line 542, in _DoSimpleCommand
+    self._DoCommand(pkt, cmd_handler, timeout)
+  File "/home/xuanxing/Source/wyzesense2mqtt/wyzesense2mqtt/wyzesense.py", line 533, in _DoCommand
+    raise TimeoutError("_DoCommand")
+TimeoutError: _DoCommand
+(.venv) xuanxing@xuanxing:~/Source/wyzesense2mqtt/wyzesense2mqtt$ ./bridge_tool_cli.py --device /dev/wyzesense -d
+Opening wyzesense gateway [/dev/wyzesense]
+DEBUG 2025-02-03 15:44:24,009 Start Inquiry...
+DEBUG 2025-02-03 15:44:24,010 ===> Sending: Packet: Cmd=4327, Payload=<None>
+DEBUG 2025-02-03 15:44:24,010 Sending: aa,55,43,03,27,01,6c
+DEBUG 2025-02-03 15:44:24,110 Trying to parse: 55,aa,43,04,28,01,01,6f
+DEBUG 2025-02-03 15:44:24,110 Received: 55,aa,43,04,28,01,01,6f
+DEBUG 2025-02-03 15:44:24,110 <=== Received: Packet: Cmd=4328, Payload=01
+DEBUG 2025-02-03 15:44:24,111 Inquiry returns 1
+DEBUG 2025-02-03 15:44:24,111 Start GetEnr...
+DEBUG 2025-02-03 15:44:24,111 ===> Sending: Packet: Cmd=4302, Payload=30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30
+DEBUG 2025-02-03 15:44:24,111 Sending: aa,55,43,13,02,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,04,57
+DEBUG 2025-02-03 15:44:24,211 Trying to parse: 55,aa,43,13,03,55,ff,eb,67,d8,c5,f8,70,b9,43,b0,21,cc,02,3e,ec,0a,c8
+DEBUG 2025-02-03 15:44:24,211 Received: 55,aa,43,13,03,55,ff,eb,67,d8,c5,f8,70,b9,43,b0,21,cc,02,3e,ec,0a,c8
+DEBUG 2025-02-03 15:44:24,211 <=== Received: Packet: Cmd=4303, Payload=55,ff,eb,67,d8,c5,f8,70,b9,43,b0,21,cc,02,3e,ec
+DEBUG 2025-02-03 15:44:24,212 GetEnr returns 55,ff,eb,67,d8,c5,f8,70,b9,43,b0,21,cc,02,3e,ec
+DEBUG 2025-02-03 15:44:24,212 Start GetMAC...
+DEBUG 2025-02-03 15:44:24,213 ===> Sending: Packet: Cmd=4304, Payload=<None>
+DEBUG 2025-02-03 15:44:24,213 Sending: aa,55,43,03,04,01,49
+DEBUG 2025-02-03 15:44:24,312 Trying to parse: 55,aa,43,0b,05,37,37,41,38,35,41,33,36,03,18
+DEBUG 2025-02-03 15:44:24,313 Received: 55,aa,43,0b,05,37,37,41,38,35,41,33,36,03,18
+DEBUG 2025-02-03 15:44:24,313 <=== Received: Packet: Cmd=4305, Payload=37,37,41,38,35,41,33,36
+DEBUG 2025-02-03 15:44:24,313 GetMAC returns 77A85A36
+INFO 2025-02-03 15:44:24,313 Dongle MAC is [77A85A36]
+DEBUG 2025-02-03 15:44:24,313 Start GetVersion...
+DEBUG 2025-02-03 15:44:24,313 ===> Sending: Packet: Cmd=5316, Payload=<None>
+DEBUG 2025-02-03 15:44:24,314 Sending: aa,55,53,03,16,01,6b
+DEBUG 2025-02-03 15:44:24,413 Trying to parse: 55,aa,53,16,ff,02,67,55,aa,53,1d,17,30,2e,30,2e,30,2e,34,37,20,56,31,2e,38,20,47,61,74,65,77,61,79,20,47,57,33,55,08,50
+DEBUG 2025-02-03 15:44:24,414 Received: 55,aa,53,16,ff,02,67
+DEBUG 2025-02-03 15:44:24,414 <=== Received: Packet: Cmd=53FF, Payload=ACK(5316)
+DEBUG 2025-02-03 15:44:24,414 Trying to parse: 55,aa,53,1d,17,30,2e,30,2e,30,2e,34,37,20,56,31,2e,38,20,47,61,74,65,77,61,79,20,47,57,33,55,08,50
+DEBUG 2025-02-03 15:44:24,414 Received: 55,aa,53,1d,17,30,2e,30,2e,30,2e,34,37,20,56,31,2e,38,20,47,61,74,65,77,61,79,20,47,57,33,55,08,50
+DEBUG 2025-02-03 15:44:24,414 <=== Received: Packet: Cmd=5317, Payload=30,2e,30,2e,30,2e,34,37,20,56,31,2e,38,20,47,61,74,65,77,61,79,20,47,57,33,55
+DEBUG 2025-02-03 15:44:24,414 Sending ACK packet for cmd 5317
+DEBUG 2025-02-03 15:44:24,414 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5317)
+DEBUG 2025-02-03 15:44:24,414 Sending: aa,55,53,17,ff,02,68
+DEBUG 2025-02-03 15:44:24,415 GetVersion returns 0.0.0.47 V1.8 Gateway GW3U
+INFO 2025-02-03 15:44:24,415 Dongle version: 0.0.0.47 V1.8 Gateway GW3U
+DEBUG 2025-02-03 15:44:24,415 ===> Sending: Packet: Cmd=5314, Payload=ff
+DEBUG 2025-02-03 15:44:24,415 Sending: aa,55,53,04,14,ff,02,69
+DEBUG 2025-02-03 15:44:24,515 Trying to parse: 55,aa,53,14,ff,02,65,55,aa,53,03,15,01,6a
+DEBUG 2025-02-03 15:44:24,516 Received: 55,aa,53,14,ff,02,65
+DEBUG 2025-02-03 15:44:24,516 <=== Received: Packet: Cmd=53FF, Payload=ACK(5314)
+DEBUG 2025-02-03 15:44:24,516 Trying to parse: 55,aa,53,03,15,01,6a
+DEBUG 2025-02-03 15:44:24,516 Received: 55,aa,53,03,15,01,6a
+DEBUG 2025-02-03 15:44:24,516 <=== Received: Packet: Cmd=5315, Payload=<None>
+DEBUG 2025-02-03 15:44:24,516 Sending ACK packet for cmd 5315
+DEBUG 2025-02-03 15:44:24,516 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5315)
+DEBUG 2025-02-03 15:44:24,516 Sending: aa,55,53,15,ff,02,66
+Gateway info:
+	MAC:77A85A36
+	VER:0.0.0.47 V1.8 Gateway GW3U
+	ENR:b'55ffeb67d8c5f870b943b021cc023eec'
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+Action:DEBUG 2025-02-03 15:44:24,617 Trying to parse: 55,aa,53,03,32,01,87
+DEBUG 2025-02-03 15:44:24,617 Received: 55,aa,53,03,32,01,87
+DEBUG 2025-02-03 15:44:24,618 <=== Received: Packet: Cmd=5332, Payload=<None>
+DEBUG 2025-02-03 15:44:24,618 Sending ACK packet for cmd 5332
+DEBUG 2025-02-03 15:44:24,618 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5332)
+DEBUG 2025-02-03 15:44:24,618 Sending: aa,55,53,32,ff,02,83
+DEBUG 2025-02-03 15:44:24,619 ===> Sending: Packet: Cmd=5333, Payload=00,00,01,94,ce,33,6e,2a
+DEBUG 2025-02-03 15:44:24,619 Sending: aa,55,53,0b,33,00,00,01,94,ce,33,6e,2a,03,be
+DEBUG 2025-02-03 15:44:24,720 Trying to parse: 55,aa,53,33,ff,02,84
+DEBUG 2025-02-03 15:44:24,720 Received: 55,aa,53,33,ff,02,84
+DEBUG 2025-02-03 15:44:24,721 <=== Received: Packet: Cmd=53FF, Payload=ACK(5333)
+L
+------------------------
+INFO 2025-02-03 15:44:26,811 Start GetSensors...
+DEBUG 2025-02-03 15:44:26,811 ===> Sending: Packet: Cmd=532E, Payload=<None>
+DEBUG 2025-02-03 15:44:26,811 Sending: aa,55,53,03,2e,01,83
+DEBUG 2025-02-03 15:44:26,828 Trying to parse: 55,aa,53,2e,ff,02,7f,55,aa,53,04,2f,02,01,87
+DEBUG 2025-02-03 15:44:26,828 Received: 55,aa,53,2e,ff,02,7f
+DEBUG 2025-02-03 15:44:26,828 <=== Received: Packet: Cmd=53FF, Payload=ACK(532E)
+DEBUG 2025-02-03 15:44:26,828 Trying to parse: 55,aa,53,04,2f,02,01,87
+DEBUG 2025-02-03 15:44:26,828 Received: 55,aa,53,04,2f,02,01,87
+DEBUG 2025-02-03 15:44:26,828 <=== Received: Packet: Cmd=532F, Payload=02
+DEBUG 2025-02-03 15:44:26,828 Sending ACK packet for cmd 532F
+DEBUG 2025-02-03 15:44:26,828 ===> Sending: Packet: Cmd=53FF, Payload=ACK(532F)
+DEBUG 2025-02-03 15:44:26,828 Sending: aa,55,53,2f,ff,02,80
+INFO 2025-02-03 15:44:26,829 2 sensors reported, waiting for each one to report...
+DEBUG 2025-02-03 15:44:26,829 ===> Sending: Packet: Cmd=5330, Payload=02
+DEBUG 2025-02-03 15:44:26,829 Sending: aa,55,53,04,30,02,01,88
+DEBUG 2025-02-03 15:44:26,929 Trying to parse: 55,aa,53,30,ff,02,81
+DEBUG 2025-02-03 15:44:26,929 Received: 55,aa,53,30,ff,02,81
+DEBUG 2025-02-03 15:44:26,929 <=== Received: Packet: Cmd=53FF, Payload=ACK(5330)
+DEBUG 2025-02-03 15:44:26,929 Trying to parse: 55,aa,53,0b,31,37,37,42,44,35,31,34,44,03,60
+DEBUG 2025-02-03 15:44:26,929 Received: 55,aa,53,0b,31,37,37,42,44,35,31,34,44,03,60
+DEBUG 2025-02-03 15:44:26,929 <=== Received: Packet: Cmd=5331, Payload=37,37,42,44,35,31,34,44
+DEBUG 2025-02-03 15:44:26,930 Sending ACK packet for cmd 5331
+DEBUG 2025-02-03 15:44:26,930 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5331)
+DEBUG 2025-02-03 15:44:26,930 Sending: aa,55,53,31,ff,02,82
+INFO 2025-02-03 15:44:26,930 Sensor 1/2, MAC:77BD514D
+DEBUG 2025-02-03 15:44:27,031 Trying to parse: 55,aa,53,0b,31,37,37,41,38,38,45,39,36,03,61
+DEBUG 2025-02-03 15:44:27,031 Received: 55,aa,53,0b,31,37,37,41,38,38,45,39,36,03,61
+DEBUG 2025-02-03 15:44:27,031 <=== Received: Packet: Cmd=5331, Payload=37,37,41,38,38,45,39,36
+DEBUG 2025-02-03 15:44:27,031 Sending ACK packet for cmd 5331
+DEBUG 2025-02-03 15:44:27,031 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5331)
+DEBUG 2025-02-03 15:44:27,031 Sending: aa,55,53,31,ff,02,82
+INFO 2025-02-03 15:44:27,031 Sensor 2/2, MAC:77A88E96
+2 sensors paired:
+DEBUG 2025-02-03 15:44:27,032 2 sensors paired:
+	Sensor: 77BD514D
+DEBUG 2025-02-03 15:44:27,032 	Sensor: 77BD514D
+	Sensor: 77A88E96
+DEBUG 2025-02-03 15:44:27,032 	Sensor: 77A88E96
+------------------------
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+Action:DEBUG 2025-02-03 15:44:27,132 Trying to parse: 55,aa,53,03,32,01,87
+DEBUG 2025-02-03 15:44:27,132 Received: 55,aa,53,03,32,01,87
+DEBUG 2025-02-03 15:44:27,132 <=== Received: Packet: Cmd=5332, Payload=<None>
+DEBUG 2025-02-03 15:44:27,132 Sending ACK packet for cmd 5332
+DEBUG 2025-02-03 15:44:27,132 ===> Sending: Packet: Cmd=53FF, Payload=ACK(5332)
+DEBUG 2025-02-03 15:44:27,132 Sending: aa,55,53,32,ff,02,83
+DEBUG 2025-02-03 15:44:27,132 ===> Sending: Packet: Cmd=5333, Payload=00,00,01,94,ce,33,77,fc
+DEBUG 2025-02-03 15:44:27,132 Sending: aa,55,53,0b,33,00,00,01,94,ce,33,77,fc,04,99
+DEBUG 2025-02-03 15:44:27,233 Trying to parse: 55,aa,53,33,ff,02,84
+DEBUG 2025-02-03 15:44:27,233 Received: 55,aa,53,33,ff,02,84
+DEBUG 2025-02-03 15:44:27,233 <=== Received: Packet: Cmd=53FF, Payload=ACK(5333)
+q
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+Action:X
+(.venv) xuanxing@xuanxing:~/Source/wyzesense2mqtt/wyzesense2mqtt$ ./bridge_tool_cli.py --device /dev/wyzesense
+Opening wyzesense gateway [/dev/wyzesense]
+Gateway info:
+	MAC:77A85A36
+	VER:0.0.0.47 V1.8 Gateway GW3U
+	ENR:b'55ffeb67d8c5f870b943b021cc023eec'
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+Action:L
+------------------------
+2 sensors paired:
+	Sensor: 77BD514D
+	Sensor: 77A88E96
+------------------------
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+Action:X

@@ -1,0 +1,11 @@
+Opening wyzesense gateway [/dev/wyzesense]
+Gateway info:
+	MAC:77A85A36
+	VER:0.0.0.34 V1.4 Dongle UD3U
+	ENR:b'55ffeb67d8c5f870b943b021cc023eec'
+L - List paired sensors
+P - Pair new sensors
+U <mac> - Unpair sensor
+F - Fix invalid sensors
+X - Exit tool
+
