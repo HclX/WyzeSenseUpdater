@@ -5,6 +5,7 @@ import sys
 import logging
 import errno
 import time
+import signal
 import struct
 import binascii
 import argparse
@@ -55,9 +56,20 @@ def dongle_write(fd, data):
     return fd.write(data)
 
 def dongle_read(fd, size):
-    #time.sleep(0.1)
-    #os.read(fd, size)
-    return fd.read(size)
+    def handler(signum, frame):
+        raise TimeoutError("File read timeout exceeded")
+
+    old_handler = signal.signal(signal.SIGALRM, handler)
+    signal.alarm(5)
+    try:
+        data = fd.read(size)
+        return data
+    except TimeoutError:
+        logging.error("Timeout occured!")
+        raise
+    finally:
+        signal.alarm(0)
+        signal.signal(signal.SIGALRM, old_handler)
 
 def rawhid_read(fd):
     pkt = dongle_read(fd, 0x3f)
@@ -164,9 +176,13 @@ def cmd_read_mem(fd, addr, size, progress_cb=lambda *args: None):
             chunk_size = SBL_CC2650_MAX_MEMREAD_BYTES
 
         cmd_data = addr.to_bytes(4, byteorder='big') + bytes([1, chunk_size // 4])
-        rsp = dongle_cmd(fd, CMD_MEMORY_READ, payload=cmd_data)
-        if not rsp:
-            return None
+        try:
+            rsp = dongle_cmd(fd, CMD_MEMORY_READ, payload=cmd_data)
+            if not rsp:
+                break
+        except TimeoutError:
+            logging.error(f"Timeout while reading memory, {addr=:08X}, {chunk_size=:02X}")
+            break
 
         assert len(rsp) == chunk_size, f'Invalid response'
         data += rsp
@@ -268,9 +284,9 @@ def show_progress(progress, done=False):
         sys.stdout.write('\n')
 
 def do_flash(fd, args):
-    logging.info(f"Writing flash content from file {args.file}...")
+    logging.info(f"Writing flash content from file {args.input}...")
 
-    data = open(args.file, 'rb').read()
+    data = open(args.input, 'rb').read()
     if len(data) != FLASH_SIZE:
         logging.error(f'Invalid flash file size')
         return False
@@ -302,42 +318,23 @@ def do_flash(fd, args):
 
     return True
 
-def do_dump(fd, args):
-    logging.info(f"Reading flash content to {args.file}...")
+def do_read(fd, args):
+    logging.info(f"Reading content (address={args.address:08X}, count={args.count:08X}) to {args.output}...")
 
-    rsp = cmd_read_mem(fd, FLASH_START_ADDR, FLASH_SIZE, progress_cb=show_progress)
+    rsp = cmd_read_mem(fd, args.address, args.count, progress_cb=show_progress)
     if not rsp:
-        logging.info(f'Reading flash failed')
+        logging.info(f'Reading failed')
         return False
 
-    assert len(rsp) == FLASH_SIZE, f'Invalid response'
+    if not args.ignore_error:
+        assert len(rsp) == args.count, f'Invalid response'
+        crc_chip = cmd_crc32(fd, args.address, args.count)
+        crc_data = binascii.crc32(rsp)
+        assert crc_chip == crc_data, f'Invalid CRC'
 
-    crc_chip = cmd_crc32(fd, FLASH_START_ADDR, FLASH_SIZE)
-    crc_dump = binascii.crc32(rsp)
-    assert crc_chip == crc_dump, f'Invalid CRC'
-
-    with open(args.file, 'wb') as f:
+    with open(args.output, 'wb') as f:
         f.write(rsp)
     return True
-
-def do_ccfg(fd, args):
-    logging.info(f"Reading CCFG content to {args.file}...")
-
-    rsp = cmd_read_mem(fd, 0x50001000, 0x3F0, progress_cb=show_progress)
-    if not rsp:
-        logging.info(f'Reading flash failed')
-        return False
-
-    assert len(rsp) == 0x3F0, f'Invalid response'
-
-    crc_chip = cmd_crc32(fd, 0x50001000, 0x3F0)
-    crc_dump = binascii.crc32(rsp)
-    assert crc_chip == crc_dump, f'Invalid CRC'
-
-    with open(args.file, 'wb') as f:
-        f.write(rsp)
-    return True
-
 
 def find_bridge_dev():
     # Path to the /dev directory for hidraw devices
@@ -367,18 +364,17 @@ def main():
 
     # Flash subcommand
     flash_parser = subparsers.add_parser("flash", help="Flash a file to the device")
-    flash_parser.add_argument(metavar="input", dest="file", type=str, help="File to flash")
+    flash_parser.add_argument("input", type=str, help="File to flash")
     flash_parser.set_defaults(func=do_flash)
 
-    # Dump subcommand
-    dump_parser = subparsers.add_parser("dump", help="Dump data from the device")
-    dump_parser.add_argument(metavar="output", dest="file", type=str, help="Output file for dumped data")
-    dump_parser.set_defaults(func=do_dump)
+    # read subcommand
+    read_parser = subparsers.add_parser("read", help="Read data from the device")
+    read_parser.add_argument("address", type=lambda x: int(x, 16), help="Start address in hex")
+    read_parser.add_argument("count", type=lambda x: int(x, 16), help="Number of bytes in hex")
+    read_parser.add_argument("output", type=str, help="Output file for dumped data")
+    read_parser.add_argument("--ignore_error", action="store_true", help="Ignore memory read errors and skip CRC check (default: False)")
 
-    # Dump subcommand
-    dump_parser = subparsers.add_parser("ccfg", help="Dump ccfg from the device")
-    dump_parser.add_argument(metavar="output", dest="file", type=str, help="Output file for dumped data")
-    dump_parser.set_defaults(func=do_ccfg)
+    read_parser.set_defaults(func=do_read)
 
     # Parse arguments
     args = parser.parse_args()
