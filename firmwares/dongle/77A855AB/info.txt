@@ -1,0 +1,5 @@
+Opening wyzesense gateway [/dev/hidraw0]
+Gateway info:
+        MAC:77A855AB
+        VER:0.0.0.34 V1.4 Dongle UD3U
+        ENR:b'5510a9945cd2fe0cc5b25ad7e28d213f'

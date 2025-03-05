@@ -284,7 +284,7 @@ def show_progress(progress, done=False):
         sys.stdout.write('\n')
 
 def do_flash(fd, args):
-    logging.info(f"Writing flash content from file {args.input}...")
+    logging.info(f"Loading flash content from file {args.input}...")
 
     data = open(args.input, 'rb').read()
     if len(data) != FLASH_SIZE:
@@ -300,26 +300,34 @@ def do_flash(fd, args):
     data_crc32 = binascii.crc32(data)
     logging.info(f"Firmware loaded from file, size=0x{len(data):08X}, CRC:0x{data_crc32:08X}")
 
-    logging.info("Erasing flash...")
-    if not cmd_erase(fd, FLASH_START_ADDR, len(data)):
-        logging.error("Erasing flash failed")
+    confirm = input("Proceed to erase and flash? (y/N): ").strip().lower()
+    if confirm == "y":
+        logging.info("To avoid bricking the device, do not unplug until finish!")
+
+        logging.info("Erasing flash...")
+        if not cmd_erase(fd, FLASH_START_ADDR, FLASH_SIZE):
+            logging.error("Erasing flash failed")
+            return False
+
+        logging.info("Writing flash...")
+        if not cmd_write_range(fd, FLASH_START_ADDR, data, progress_cb=show_progress):
+            logging.error("Writing flash failed")
+            return False
+
+        chip_crc32 = cmd_crc32(fd, FLASH_START_ADDR, len(data))
+        logging.info(f"Chip CRC:0x{chip_crc32:08X}")
+        if chip_crc32 != data_crc32:
+            logging.error("CRC doesn't match!")
+            return False
+
+        logging.info("Flashing finished successfully!")
+        return True
+    else:
+        logging.info("abort by user...")
         return False
 
-    logging.info("Writing flash...")
-    if not cmd_write_range(fd, FLASH_START_ADDR, data, progress_cb=show_progress):
-        logging.error("Writing flash failed")
-        return False
-
-    chip_crc32 = cmd_crc32(fd, FLASH_START_ADDR, len(data))
-    logging.info(f"Chip CRC:0x{chip_crc32:08X}")
-    if chip_crc32 != data_crc32:
-        logging.error("CRC doesn't match!")
-        return False
-
-    return True
-
-def do_read(fd, args):
-    logging.info(f"Reading content (address={args.address:08X}, count={args.count:08X}) to {args.output}...")
+def do_dump(fd, args):
+    logging.info(f"Dumping content (address=0x{args.address:08X}, count=0x{args.count:08X}) to {args.output}...")
 
     rsp = cmd_read_mem(fd, args.address, args.count, progress_cb=show_progress)
     if not rsp:
@@ -354,35 +362,61 @@ def main():
     # Set up argument parser
     parser = argparse.ArgumentParser(description="Tool for device operations")
     parser.add_argument(
-        "-v", "--verbose", action="count", default=0,
+        "-v", "--verbose",
+        action="store_true",
         help="Increase verbosity level (-v for INFO, -vv for DEBUG)"
     )
-    parser.add_argument("-d", "--device", type=str, default=find_bridge_dev(), help="Device file path")
+    parser.add_argument(
+        "-d", "--device",
+        type=str, default=find_bridge_dev(),
+        help="Device file path, default: <auto discovery>"
+    )
 
     # Subparsers for actions
     subparsers = parser.add_subparsers(dest="action", required=True)
 
     # Flash subcommand
     flash_parser = subparsers.add_parser("flash", help="Flash a file to the device")
-    flash_parser.add_argument("input", type=str, help="File to flash")
+    flash_parser.add_argument(
+        "-i", "--input",
+        type=str,
+        default="flash.bin",
+        help="Input file to flash, default=flash.bin"
+    )
+
     flash_parser.set_defaults(func=do_flash)
 
     # read subcommand
-    read_parser = subparsers.add_parser("read", help="Read data from the device")
-    read_parser.add_argument("address", type=lambda x: int(x, 16), help="Start address in hex")
-    read_parser.add_argument("count", type=lambda x: int(x, 16), help="Number of bytes in hex")
-    read_parser.add_argument("output", type=str, help="Output file for dumped data")
-    read_parser.add_argument("--ignore_error", action="store_true", help="Ignore memory read errors and skip CRC check (default: False)")
+    read_parser = subparsers.add_parser("dump", help="Dump data from the device")
+    read_parser.add_argument(
+        "--address",
+        type=lambda x: int(x, 16),
+        default=FLASH_START_ADDR,
+        help=f"Start address in hex, default=0x{FLASH_START_ADDR:04X}")
+    read_parser.add_argument(
+        "--count",
+        type=lambda x: int(x, 16),
+        default=FLASH_SIZE,
+        help=f"Number of bytes in hex, default=0x{FLASH_SIZE:8X}")
+    read_parser.add_argument(
+        "--output",
+        type=str,
+        default='dump.bin',
+        help="Output file for dumped data, default=flash.bin")
+    read_parser.add_argument(
+        "--ignore_error",
+        action="store_true",
+        help="Ignore memory read errors and skip CRC check (default: False)")
 
-    read_parser.set_defaults(func=do_read)
+    read_parser.set_defaults(func=do_dump)
 
     # Parse arguments
     args = parser.parse_args()
 
     # Set logging level based on verbosity
-    logging_levels = [logging.WARNING, logging.INFO, logging.DEBUG]
-    logging_level = logging_levels[min(args.verbose, len(logging_levels) - 1)]
-    logging.basicConfig(level=logging_level)
+    logging.basicConfig(level=logging.INFO)
+    if args.verbose:
+        logging.basicConfig(level=logging.DEBUG)
 
     if not args.device:
         logging.error(f'No wyze sense bridge device file specified or found!')
